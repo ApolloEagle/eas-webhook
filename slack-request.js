@@ -1,9 +1,4 @@
-import { Block } from "./types/types";
-
-export const slackRequest = async (
-  payload: { blocks: Block[] },
-  slackUrl: string
-) => {
+export const slackRequest = async (payload, slackUrl) => {
   const { blocks } = payload;
 
   try {

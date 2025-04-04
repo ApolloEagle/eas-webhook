@@ -1,8 +1,8 @@
-import { handleEASStatus } from "./helpers/handle-eas-status";
-import { slackRequest } from "./slack-request";
+import { handleEASStatus } from "./helpers/handle-eas-status.js";
+import { slackRequest } from "./slack-request.js";
 
 export default {
-  async fetch(request, env): Promise<Response> {
+  async fetch(request, env) {
     try {
       if (request.method === "POST") {
         const body = await request.json();

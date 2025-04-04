@@ -1,17 +1,4 @@
-import {
-  ResponseBody,
-  Block,
-  HeaderBlock,
-  SectionBlock,
-  ActionsBlock,
-} from "../types/types";
-import { Platform } from "../types/enums";
-
-export const createMessage = (
-  text: string,
-  body: ResponseBody,
-  showQR: boolean
-): { blocks: Block[] } => {
+export const createMessage = (text, body, showQR) => {
   const { platform, metadata, artifacts, buildDetailsPageUrl, appId, id } =
     body;
 
@@ -19,14 +6,13 @@ export const createMessage = (
   const { buildUrl } = artifacts;
 
   const url =
-    appId && id && platform === Platform.iOS
+    appId && id && platform === "ios"
       ? `itms-services://?action=download-manifest;url=https://exp.host/--/api/v2/projects/${appId}/builds/${id}/manifest.plist`
       : buildUrl;
 
-  const actionText: string =
-    platform === Platform.iOS ? "Download IPA" : "Download APK";
+  const actionText = platform === "ios" ? "Download IPA" : "Download APK";
 
-  const headerBlock: HeaderBlock = {
+  const headerBlock = {
     type: "header",
     text: {
       type: "plain_text",
@@ -34,7 +20,7 @@ export const createMessage = (
     },
   };
 
-  const sectionBlock: SectionBlock = {
+  const sectionBlock = {
     type: "section",
     fields: [
       {
@@ -44,7 +30,7 @@ export const createMessage = (
     ],
   };
 
-  const actionsBlock: ActionsBlock = {
+  const actionsBlock = {
     type: "actions",
     elements: [
       {
@@ -66,7 +52,7 @@ export const createMessage = (
     ],
   };
 
-  const blocks: Block[] = [headerBlock, sectionBlock, actionsBlock];
+  const blocks = [headerBlock, sectionBlock, actionsBlock];
 
   if (showQR && url) {
     blocks.push({
